@@ -1,6 +1,6 @@
 <?php
 
-$IMPORTER['directory'] = "/archive/"; // The location of your Twitter archive
+$IMPORTER['directory'] = "archive/"; // The location of your Twitter archive
 
 $IMPORTER['db_host'] = "localhost"; // Probably localhost
 $IMPORTER['db_user'] = "root";
