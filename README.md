@@ -9,4 +9,4 @@ This is very much beta. Make a backup before you run this.
 
 Thanks
 ------
-Many thanks to [@rivanov](http://twitter.com/rivanov) for providing his Twitter archive for testing before my account gets the rollout.
+Many thanks to [@sarahbourne](https://twitter.com/sarahebourne) for providing her Twitter archive for testing before my account gets the rollout.
