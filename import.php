@@ -11,25 +11,27 @@ foreach($files as $file)
 	$str_data = file_get_contents($file);
 	$str_data = substr($str_data, 32);
 	
-	$data = json_decode($str_data,true);
-
-	$parsed_tweet = array(
-                    'post_id'             => $data->id,
-                    'author_username'     => $data->user->screen_name,
-                    'author_fullname'     => $data->user->name,
-                    'author_avatar'       => $data->user->profile_image_url_https,
-                    'is_protected'        => $data->user->protected,
-                    'author_user_id'      => (string)$data->user->id,
-                    'user_id'             => (string)$data->user->id,
-                    'post_text'           => (string)$data->text,
-                    'pub_date'            => gmdate("Y-m-d H:i:s", strToTime($data->created_at)),
-                    'in_reply_to_post_id' => (string)$data->in_reply_to_status_id,
-                    'in_reply_to_user_id' => (string)$data->in_reply_to_user_id,
-                    'source'              => (string)$data->source,
-                    'favorited'           => (string)$data->favorited,
-                    'place'               => (string)$data->place->full_name,
-                    'network'             => 'twitter'
-    );
+	$data = json_decode($str_data);
+	
+	foreach ($data as $tweet) {
+		$parsed_tweet = array(
+	                    'post_id'             => $tweet->id,
+	                    'author_username'     => $tweet->user->screen_name,
+	                    'author_fullname'     => $tweet->user->name,
+	                    'author_avatar'       => $tweet->user->profile_image_url_https,
+	                    'is_protected'        => $tweet->user->protected,
+	                    'author_user_id'      => (string)$tweet->user->id,
+	                    'user_id'             => (string)$tweet->user->id,
+	                    'post_text'           => (string)$tweet->text,
+	                    'pub_date'            => gmdate("Y-m-d H:i:s", strToTime($tweet->created_at)),
+	                    'in_reply_to_post_id' => (string)$tweet->in_reply_to_status_id,
+	                    'in_reply_to_user_id' => (string)$tweet->in_reply_to_user_id,
+	                    'source'              => (string)$tweet->source,
+	                    'favorited'           => (string)$tweet->favorited,
+	                    'place'               => (string)$tweet->place->full_name,
+	                    'network'             => 'twitter'
+	    );
+    }
 
 }
 
