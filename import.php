@@ -1,10 +1,13 @@
 <pre>
 <?php
 
+date_default_timezone_set('GMT+0');
+
 $directory = "tweets/";
 $files = glob($directory . "*.js");
 
-
+$tweets = Array();
+	
 foreach($files as $file)
 {
 
@@ -14,26 +17,31 @@ foreach($files as $file)
 	$data = json_decode($str_data);
 	
 	foreach ($data as $tweet) {
-		$parsed_tweet = array(
-	                    'post_id'             => $tweet->id,
-	                    'author_username'     => $tweet->user->screen_name,
-	                    'author_fullname'     => $tweet->user->name,
-	                    'author_avatar'       => $tweet->user->profile_image_url_https,
-	                    'is_protected'        => $tweet->user->protected,
-	                    'author_user_id'      => (string)$tweet->user->id,
-	                    'user_id'             => (string)$tweet->user->id,
-	                    'post_text'           => (string)$tweet->text,
-	                    'pub_date'            => gmdate("Y-m-d H:i:s", strToTime($tweet->created_at)),
-	                    'in_reply_to_post_id' => (string)$tweet->in_reply_to_status_id,
-	                    'in_reply_to_user_id' => (string)$tweet->in_reply_to_user_id,
-	                    'source'              => (string)$tweet->source,
-	                    'favorited'           => (string)$tweet->favorited,
-	                    'place'               => (string)$tweet->place->full_name,
-	                    'network'             => 'twitter'
-	    );
-    }
+		$currentTweet = array(
+			'post_id'	 => $tweet->id_str,
+			'author_username'     => $tweet->user->screen_name,
+			'author_fullname'     => $tweet->user->name,
+			'author_avatar'       => $tweet->user->profile_image_url_https,
+			'is_protected'	=> $tweet->user->protected,
+			'author_user_id'      => $tweet->user->id_str,
+			'user_id'	 => $tweet->user->id_str,
+			'post_text'	   => (string)$tweet->text,
+			'pub_date'	=> gmdate("Y-m-d H:i:s", strToTime($tweet->created_at)),
+			'source'	  => (string)$tweet->source,
+			'geo'	   => $tweet->geo,
+			'network'	 => 'twitter'
+		);
 
+		if (isset($tweet->in_reply_to_post_id) && isset($tweet->in_reply_to_user_id)){
+			$currentTweet['in_reply_to_post_id'] = (string)$tweet->in_reply_to_status_id_str;
+			$currentTweet['in_reply_to_user_id'] = (string)$tweet->in_reply_to_user_id_str;
+		}
+
+		$tweets[] = $currentTweet;
+	}
 }
+
+print_r($tweets);
 
 
 
