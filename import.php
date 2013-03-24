@@ -43,8 +43,8 @@ foreach($files as $file)
       // Check to see if a tweet with the specific id already exists
       //  Make sure to only check twitter posts
       //  Limit the response to 1 (since that should be the maximum there would be
-      $count = DB::queryFirstField("SELECT COUNT(*) FROM %s WHERE post_id=%i AND network=twitter LIMIT 1", $table_name, $parsed_tweet['post_id'])
-      if ($count < 1) {
+      $count = DB::queryFirstField("SELECT COUNT(*) FROM %s WHERE post_id=%i AND network=twitter LIMIT 1", $table_name, $parsed_tweet['post_id']);
+      if ($count == 1) {
         DB::insert($table_name, $parsed_tweet);
       }
     }
@@ -55,3 +55,4 @@ $db->close();
 echo "Finished!";
 
 ?>
+
