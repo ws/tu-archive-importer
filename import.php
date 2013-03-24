@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 
 // Instead of messing around with SQL statements myself
@@ -47,10 +47,8 @@ foreach($files as $file)
       if ($count == 0) {
         DB::insert($table_name, $parsed_tweet);
       }
-    }
+  }
 }
-
-$db->close();
 
 echo "Finished!";
 
