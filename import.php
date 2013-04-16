@@ -25,7 +25,7 @@ foreach($files as $file)
 	
 	foreach ($data as $tweet) {
 		$parsed_tweet = array(
-			'post_id'             => $tweet->id,
+			'post_id'             => $tweet->id_str,
 			'author_username'     => $tweet->user->screen_name,
 			'author_fullname'     => $tweet->user->name,
 			'author_avatar'       => $tweet->user->profile_image_url_https,
