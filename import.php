@@ -25,16 +25,17 @@ foreach($files as $file)
 	
 	foreach ($data as $tweet) {
 		$parsed_tweet = array(
-			'post_id'             => $tweet->id_str,
-			'author_username'     => $tweet->user->screen_name,
-			'author_fullname'     => $tweet->user->name,
-			'author_avatar'       => $tweet->user->profile_image_url_https,
-			'is_protected'        => $tweet->user->protected,
-			'author_user_id'      => (string)$tweet->user->id,
-			'post_text'           => (string)$tweet->text,
-			'pub_date'            => gmdate("Y-m-d H:i:s", strToTime($tweet->created_at)),
-			'source'              => (string)$tweet->source,
-			'network'             => 'twitter'
+			'post_id'             	=> $tweet->id_str,
+			'author_username'     	=> $tweet->user->screen_name,
+			'author_fullname'     	=> $tweet->user->name,
+			'author_avatar'       	=> $tweet->user->profile_image_url_https,
+			'is_protected'        	=> $tweet->user->protected,
+			'author_user_id'      	=> (string)$tweet->user->id,
+			'post_text'           	=> (string)$tweet->text,
+			'pub_date'            	=> gmdate("Y-m-d H:i:s", strToTime($tweet->created_at)),
+			'source'              	=> (string)$tweet->source,
+			'network'             	=> 'twitter',
+			'author_follower_count' => '0'
 		);
 
 		if (isset($tweet->place->full_name)) {
