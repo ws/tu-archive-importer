@@ -10,8 +10,19 @@ DB::$dbName = 'thinkup';
 // Change this if you changed your posts table prefix
 $table_name = 'tu_posts';
 
+// Twitter user ID (number, can be found in the tweet archive)
+$userid = '';
+
 $directory = "tweets/";
 $files = glob($directory . "*.js");
+
+echo "Pulling existing tweets...\n";
+
+$existingdb = DB::query("SELECT post_id FROM " . $table_name . " WHERE author_user_id=%i AND network='twitter'", $userid);
+foreach ($existingdb as $tweet) {
+	$existing[$tweet['post_id']] = true;
+}
+unset($existingdb);
 
 echo "Running...";
 
@@ -51,10 +62,7 @@ foreach($files as $file)
 		}
 
 		// Check to see if a tweet with the specific id already exists
-		//  Make sure to only check twitter posts
-		//  Limit the response to 1 (since that should be the maximum there would be
-		$count = DB::queryFirstField("SELECT COUNT(*) FROM " . $table_name . " WHERE post_id=%i AND network='twitter' LIMIT 1", $parsed_tweet['post_id']);
-		if ($count == 0) {
+		if (!isset($existing[$tweet->id_str])) {
 			DB::insert($table_name, $parsed_tweet);
 		}
 	}
