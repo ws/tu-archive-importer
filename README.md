@@ -1,6 +1,8 @@
 tu-archive-importer
 ===================
 
+**NOTE: I haven't tried this in like 2+ years... it should still work, but no promises. Also it's horrible code. Sorry.**
+
 A wonderfully simple tool to import your Twitter archive into ThinkUp.
 
 Instructions
